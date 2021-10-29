@@ -16,6 +16,8 @@ MONGO_CLUSTER=
 MONGO_USER=
 MONGO_DBNAME=
 SERVER_SECRET=
+HOST=
+PORT=
 ```
 
 ## Flow별 처리 과정
@@ -56,3 +58,21 @@ AWS를 사용해서 배포한다.
 - ELB(Elastic Load Balancer)를 사용해 여기에 인증서를 물리고, ELB가 뒤의 EC2를 바라보게 함
 - SES를 통해 메일 처리
 - 데이터베이스는 MongoDB를 사용.
+
+### 로깅(pino-http, pino-pretty)
+
+```bash
+npm run server | pino-pretty
+```
+
+```bash
+npm run server >> logs
+```
+
+```bash
+tail -f logs | pino-pretty
+```
+
+### Helmet
+
+- 여러가지 HTTP headers를 설정해서 express 앱을 좀 더 보안을 올려주는 역할

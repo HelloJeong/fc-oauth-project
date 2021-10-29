@@ -1,6 +1,6 @@
-const HOST = 'fcef-220-118-91-62.ngrok.io'
-
 /* eslint-disable prefer-destructuring */
+const HOST = process.env.HOST
+const PORT = process.env.PORT || 3000
 
 /** @type {string} */
 const FB_APP_ID = process.env.FB_APP_ID
@@ -43,4 +43,5 @@ module.exports = {
   APP_CONFIG_JSON,
   KAKAO_REDIRECT_URI,
   KAKAO_REST_KEY,
+  PORT,
 }
