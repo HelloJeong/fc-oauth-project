@@ -1,5 +1,5 @@
 // @ts-check
-
+const { v4: uuidv4 } = require('uuid')
 const { signJWT } = require('./jwt')
 const { getUsersCollection } = require('../mongo')
 
@@ -42,6 +42,28 @@ async function createUserOrLogin({
   })
 
   // TODO
+
+  if (existingUser) {
+    return {
+      userId: existingUser.id,
+      accessToken: await signJWT(existingUser.id),
+    }
+  }
+
+  const userId = uuidv4()
+  await users.insertOne({
+    id: userId,
+    platformUserId,
+    platform,
+    nickname,
+    profileImageURL,
+    verified: true,
+  })
+
+  return {
+    userId,
+    accessToken: await signJWT(userId),
+  }
 }
 
 /**
